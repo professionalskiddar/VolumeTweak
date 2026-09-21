@@ -1,1 +1,2 @@
-I made this AutoHotKey macro to make it so the volume knob on my keyboard only makes the volume increase by 1. You can also use this as just a volume notification tweaker.
+I made this AutoHotKey macro to make it so the volume knob on my keyboard only makes the volume increase by 1.
+Thats it
