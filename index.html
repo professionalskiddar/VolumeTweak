@@ -78,6 +78,9 @@
             padding: 12px 24px;
             border-radius: 6px;
             font-weight: 600;
+            cursor: pointer;
+            border: none;
+            font-family: inherit;
             transition: opacity 0.2s;
         }
         .btn:hover { opacity: 0.9; }
@@ -116,6 +119,57 @@
             font-weight: 600;
             margin-right: 2px;
         }
+
+        /* MODAL STYLING */
+        .modal-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.85);
+            display: none;
+            justify-content: center;
+            align-items: center;
+            z-index: 1000;
+            backdrop-filter: blur(4px);
+        }
+        .modal-content {
+            background-color: var(--card-bg);
+            border: 1px solid var(--border-color);
+            padding: 2rem;
+            border-radius: 12px;
+            max-width: 450px;
+            text-align: center;
+            box-shadow: 0 20px 40px rgba(0,0,0,0.5);
+        }
+        .modal-content p {
+            font-size: 1.1rem;
+            margin-bottom: 1.5rem;
+            color: var(--text-main);
+        }
+        .modal-btns {
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+        }
+        .modal-btn {
+            display: block;
+            padding: 10px;
+            border-radius: 6px;
+            text-decoration: none;
+            font-weight: 600;
+            transition: background 0.2s;
+            cursor: pointer;
+            border: none;
+            font-family: inherit;
+        }
+        .btn-sure { background-color: var(--accent-blue); color: white; }
+        .btn-fork { background-color: #21262d; color: #c9d1d9; border: 1px solid var(--border-color); }
+        .btn-no { background-color: transparent; color: var(--text-muted); }
+        .btn-sure:hover { opacity: 0.9; }
+        .btn-fork:hover { background-color: #30363d; }
+        .btn-no:hover { color: #fff; }
 
         .grid {
             display: grid;
@@ -158,54 +212,67 @@
 </head>
 <body>
 
-<div class="container">
-    <header>
-        <div class="badge">🔊 OPEN SOURCE WINDOWS TWEAKER</div>
-        <h1>VolumeTweak</h1>
-        <p class="tagline">Lightweight Windows audio automation engine. Standardize physical keyboard volume wheel rotations to strictly scale in precise 1% increments.</p>
-        
-        <div class="btn-container">
-            <a href="https://github.com/professionalskiddar/VolumeTweak/releases/download/Download/VolumeTweak64.exe" class="btn">🚀 Download (.EXE)</a>
+    <!-- MODAL PROMPT -->
+    <div id="support-modal" class="modal-overlay">
+        <div class="modal-content">
+            <p>Support this project by starring it? This motivates the developer and helps people find this page!</p>
+            <div class="modal-btns">
+                <a href="https://github.com/professionalskiddar/VolumeTweak" target="_blank" class="modal-btn btn-sure" onclick="closeModal()">Sure!</a>
+                <a href="https://github.com/professionalskiddar/VolumeTweak/forks" target="_blank" class="modal-btn btn-fork" onclick="closeModal()">Maybe I'll fork it</a>
+                <button class="modal-btn btn-no" onclick="closeModal()">No thanks</button>
+            </div>
+        </div>
+    </div>
+
+    <div class="container">
+        <header>
+            <div class="badge">🔊 OPEN SOURCE WINDOWS TWEAKER</div>
+            <h1>VolumeTweak</h1>
+            <p class="tagline">Lightweight Windows audio automation engine. Standardize physical keyboard volume wheel rotations to strictly scale in precise 1% increments.</p>
             
-            <div class="github-btn-group">
-                <a href="https://github.com/professionalskiddar/VolumeTweak" target="_blank" class="github-btn">
-                    <svg viewBox="0 0 16 16"><path d="M8 .25a.75.75 0 01.673.418l1.882 3.815 4.21.612a.75.75 0 01.416 1.33l-3.894 3.779.98 4.957a.75.75 0 01-1.15.66l-4.12-3.46-4.12 3.46a.75.75 0 01-1.15-.66l.98-4.957-3.894-3.779a.75.75 0 01.416-1.33l4.21-.612L7.327.668a.75.75 0 01.673-.418z"></path></svg>
-                    <span id="stars-count" class="count-num">...</span> Star
-                </a>
-                <a href="https://github.com/professionalskiddar/VolumeTweak/forks" target="_blank" class="github-btn">
-                    <svg viewBox="0 0 16 16"><path d="M4.75 3.75c0-.414.336-.75.75-.75h4.5c.414 0 .75.336.75.75v4.5c0 .414-.336.75-.75.75h-4.5c-.414 0-.75-.336-.75-.75v-4.5zm6.75 6.75a.75.75 0 00-1.5 0v-4.5c0-.414.336-.75.75-.75h4.5c.414 0 .75.336.75.75v4.5c0 .414-.336.75-.75.75h-4.5z"></path><path d="M2 12.75a.75.75 0 01.75-.75h13.5a.75.75 0 010 1.5H2.75A.75.75 0 012 12.75z"></path></svg>
-                    <span id="forks-count" class="count-num">...</span> Fork
-                </a>
+            <div class="btn-container">
+                <!-- CHANGED TO FUNCTION CALL -->
+                <button onclick="handleDownload()" class="btn">🚀 Download (.EXE)</button>
+                
+                <div class="github-btn-group">
+                    <a href="https://github.com/professionalskiddar/VolumeTweak" target="_blank" class="github-btn">
+                        <svg viewBox="0 0 16 16"><path d="M8 .25a.75.75 0 01.673.418l1.882 3.815 4.21.612a.75.75 0 01.416 1.33l-3.894 3.779.98 4.957a.75.75 0 01-1.15.66l-4.12-3.46-4.12 3.46a.75.75 0 01-1.15-.66l.98-4.957-3.894-3.779a.75.75 0 01.416-1.33l4.21-.612L7.327.668a.75.75 0 01.673-.418z"></path></svg>
+                        <span id="stars-count" class="count-num">...</span> Star
+                    </a>
+                    <a href="https://github.com/professionalskiddar/VolumeTweak/forks" target="_blank" class="github-btn">
+                        <svg viewBox="0 0 16 16"><path d="M4.75 3.75c0-.414.336-.75.75-.75h4.5c.414 0 .75.336.75.75v4.5c0 .414-.336.75-.75.75h-4.5c-.414 0-.75-.336-.75-.75v-4.5zm6.75 6.75a.75.75 0 00-1.5 0v-4.5c0-.414.336-.75.75-.75h4.5c.414 0 .75.336.75.75v4.5c0 .414-.336.75-.75.75h-4.5z"></path><path d="M2 12.75a.75.75 0 01.75-.75h13.5a.75.75 0 010 1.5H2.75A.75.75 0 012 12.75z"></path></svg>
+                        <span id="forks-count" class="count-num">...</span> Forks
+                    </a>
+                </div>
             </div>
-        </div>
-    </header>
+        </header>
 
-    <section>
-        <h2>✨ Core Performance Metrics</h2>
-        <div class="grid">
-            <div class="card">
-                <h3>🎯 Strict 1% Step Sizing</h3>
-                <p>Intercepts default Windows kernel actions that push adjustments up by 2% to 4% intervals, forcing clean absolute steps instead.</p>
+        <section>
+            <h2>✨ Core Performance Metrics</h2>
+            <div class="grid">
+                <div class="card">
+                    <h3>🎯 Strict 1% Step Sizing</h3>
+                    <p>Intercepts default Windows kernel actions that push adjustments up by 2% to 4% intervals, forcing clean absolute steps instead.</p>
+                </div>
+                <div class="card">
+                    <h3>⚡ Zero Resource Overhead</h3>
+                    <p>Optimized background runtime loops ensure near-zero CPU and memory overhead processing inside Windows system tasks.</p>
+                </div>
+                <div class="card">
+                    <h3>🎛️ Notification Optimization</h3>
+                    <p>Can double as a native UI notification controller, intercepting default system overlays cleanly during intense gaming or audio mixing.</p>
+                </div>
+                <div class="card">
+                    <h3>🛠️ Portable Structure</h3>
+                    <p>Run the standalone distribution package instantly without writing complex configuration profiles into your system registry.</p>
+                </div>
             </div>
-            <div class="card">
-                <h3>⚡ Zero Resource Overhead</h3>
-                <p>Optimized background runtime loops ensure near-zero CPU and memory overhead processing inside Windows system tasks.</p>
-            </div>
-            <div class="card">
-                <h3>🎛️ Notification Optimization</h3>
-                <p>Can double as a native UI notification controller, intercepting default system overlays cleanly during intense gaming or audio mixing.</p>
-            </div>
-            <div class="card">
-                <h3>🛠️ Portable Structure</h3>
-                <p>Run the standalone distribution package instantly without writing complex configuration profiles into your system registry.</p>
-            </div>
-        </div>
-    </section>
+        </section>
 
-    <section style="margin-top: 40px;">
-        <h2>💻 Preview Native Automation Code</h2>
-        <p>This macro hooks your system audio channels directly. You can inspect the underlying mechanics below:</p>
-        <pre><code><span class="comment">; VolumeTweak Audio Normalization Routine Core Loop</span>
+        <section style="margin-top: 40px;">
+            <h2>💻 Preview Native Automation Code</h2>
+            <p>This macro hooks your system audio channels directly. You can inspect the underlying mechanics below:</p>
+            <pre><code><span class="comment">; VolumeTweak Audio Normalization Routine Core Loop</span>
 $Volume_Up::
 SoundSet, +1
 Return
@@ -213,31 +280,39 @@ Return
 $Volume_Down::
 SoundSet, -1
 Return</code></pre>
-    </section>
+        </section>
 
-    <div style="text-align: center; margin-bottom: 30px; margin-top: 40px;">
-        <a href="https://professionalskiddar.pages.dev/" style="color: var(--accent-blue); text-decoration: none; font-weight: bold;">← Back to Main Portfolio</a>
+        <div style="text-align: center; margin-bottom: 30px; margin-top: 40px;">
+            <a href="https://professionalskiddar.pages.dev/" style="color: var(--accent-blue); text-decoration: none; font-weight: bold;">← Back to Main Portfolio</a>
+        </div>
+
+        <footer>
+            <p>VolumeTweak is independent open-source software. Star the project on <a href="https://github.com/professionalskiddar/VolumeTweak">GitHub</a>.</p>
+        </footer>
     </div>
 
-    <footer>
-        <p>VolumeTweak is independent open-source software. Star the project on <a href="https://github.com/professionalskiddar/VolumeTweak">GitHub</a>.</p>
-    </footer>
-</div>
-
-<script>
-    async function updateGitHubStats() {
-        const repo = 'professionalskiddar/VolumeTweak';
-        try {
-            const response = await fetch(`https://api.github.com/repos/${repo}`);
-            const data = await response.json();
-            document.getElementById('stars-count').innerText = data.stargazers_count;
-            document.getElementById('forks-count').innerText = data.forks_count;
-        } catch (error) {
-            document.getElementById('stars-count').innerText = '0';
-            document.getElementById('forks-count').innerText = '0';
+    <script>
+        function handleDownload() {
+            window.open('https://github.com/professionalskiddar/VolumeTweak/releases/download/Download/VolumeTweak64.exe', '_blank'); 
+            document.getElementById('support-modal').style.display = 'flex';
         }
-    }
-    window.onload = updateGitHubStats;
-</script>
+        function closeModal() {
+            document.getElementById('support-modal').style.display = 'none';
+        }
+
+        async function updateGitHubStats() {
+            const repo = 'professionalskiddar/VolumeTweak';
+            try {
+                const response = await fetch(`https://api.github.com/repos/${repo}`);
+                const data = await response.json();
+                document.getElementById('stars-count').innerText = data.stargazers_count;
+                document.getElementById('forks-count').innerText = data.forks_count;
+            } catch (error) {
+                document.getElementById('stars-count').innerText = '0';
+                document.getElementById('forks-count').innerText = '0';
+            }
+        }
+        window.onload = updateGitHubStats;
+    </script>
 </body>
 </html>
