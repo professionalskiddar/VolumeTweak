@@ -4,19 +4,14 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     
-    <!-- CANONICAL LINK (Updated to point to the Website, not the Repo) -->
     <link rel="canonical" href="https://professionalskiddar.github.io/VolumeTweak/" />
-
-    <!-- Google Search Console Ownership Verification -->
     <meta name="google-site-verification" content="qVpdcCP4YW0LhKpiP_JYHW5iCKmVSOS_OZr6IgTtlvw" />
 
-    <!-- Google SEO Meta Tags -->
     <title>VolumeTweak | Precision Windows Volume Knob Increments Macro</title>
     <meta name="description" content="Free open-source Windows macro utility built to normalize mechanical volume knob rotations into 1% step changes. Fix sudden sound jumps instantly.">
     <meta name="keywords" content="volumetweak, autohotkey, ahk macro, windows volume fix, volume knob tweak, audio automation, keyboard scroll tweak">
     <meta name="robots" content="index, follow">
     
-    <!-- Premium Dark Theme Layout Styles -->
     <style>
         :root {
             --bg-color: #0d1117;
@@ -59,6 +54,7 @@
             font-size: 0.85rem;
             font-weight: bold;
             display: inline-block;
+            margin-bottom: 10px;
         }
         .tagline {
             font-size: 1.2rem;
@@ -68,6 +64,11 @@
         }
         .btn-container {
             margin-top: 25px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            gap: 15px;
+            flex-wrap: wrap;
         }
         .btn {
             display: inline-block;
@@ -77,17 +78,41 @@
             padding: 12px 24px;
             border-radius: 6px;
             font-weight: 600;
-            margin: 0 10px;
             transition: opacity 0.2s;
         }
-        .btn-secondary {
-            background-color: transparent;
-            border: 1px solid var(--border-color);
-            color: var(--text-main);
+        .btn:hover { opacity: 0.9; }
+
+        /* GITHUB-STYLE BUTTONS */
+        .github-btn-group {
+            display: flex;
+            gap: 4px;
+            align-items: center;
         }
-        .btn:hover {
-            opacity: 0.9;
+        .github-btn {
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
+            background-color: #21262d; 
+            color: #c9d1d9 !important;
+            border: 1px solid #30363d;
+            padding: 6px 12px;
+            font-size: 13px;
+            font-weight: 500;
+            border-radius: 6px;
+            text-decoration: none !important;
+            transition: background-color 0.2s, border-color 0.2s;
         }
+        .github-btn:hover {
+            background-color: #30363d;
+            border-color: #8b949e;
+            color: #ffffff !important;
+        }
+        .github-btn svg {
+            fill: currentColor;
+            width: 14px;
+            height: 14px;
+        }
+
         .grid {
             display: grid;
             grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
@@ -100,15 +125,8 @@
             border-radius: 8px;
             padding: 20px;
         }
-        .card h3 {
-            margin-top: 0;
-            color: var(--text-main);
-        }
-        .card p {
-            color: var(--text-muted);
-            font-size: 0.95rem;
-            margin-bottom: 0;
-        }
+        .card h3 { margin-top: 0; color: var(--text-main); }
+        .card p { color: var(--text-muted); font-size: 0.95rem; margin-bottom: 0; }
         pre {
             background-color: var(--card-bg);
             border: 1px solid var(--border-color);
@@ -144,7 +162,17 @@
         
         <div class="btn-container">
             <a href="https://github.com/professionalskiddar/VolumeTweak/releases/download/Download/VolumeTweak64.exe" class="btn">🚀 Download (.EXE)</a>
-            <a href="github.com/professionalskiddar/VolumeTweak" target="_blank" class="btn btn-secondary">💻 View Source Code</a>
+            
+            <div class="github-btn-group">
+                <a href="https://github.com/professionalskiddar/VolumeTweak" target="_blank" class="github-btn">
+                    <svg viewBox="0 0 16 16"><path d="M8 .25a.75.75 0 01.673.418l1.882 3.815 4.21.612a.75.75 0 01.416 1.33l-3.894 3.779.98 4.957a.75.75 0 01-1.15.66l-4.12-3.46-4.12 3.46a.75.75 0 01-1.15-.66l.98-4.957-3.894-3.779a.75.75 0 01.416-1.33l4.21-.612L7.327.668a.75.75 0 01.673-.418z"></path></svg>
+                    Star
+                </a>
+                <a href="https://github.com/professionalskiddar/VolumeTweak/forks" target="_blank" class="github-btn">
+                    <svg viewBox="0 0 16 16"><path d="M4.75 3.75c0-.414.336-.75.75-.75h4.5c.414 0 .75.336.75.75v4.5c0 .414-.336.75-.75.75h-4.5c-.414 0-.75-.336-.75-.75v-4.5zm6.75 6.75a.75.75 0 00-1.5 0v-4.5c0-.414.336-.75.75-.75h4.5c.414 0 .75.336.75.75v4.5c0 .414-.336.75-.75.75h-4.5z"></path><path d="M2 12.75a.75.75 0 01.75-.75h13.5a.75.75 0 010 1.5H2.75A.75.75 0 012 12.75z"></path></svg>
+                    Fork
+                </a>
+            </div>
         </div>
     </header>
 
@@ -183,7 +211,6 @@ SoundSet, -1
 Return</code></pre>
     </section>
 
-    <!-- Portfolio Link Added Here -->
     <div style="text-align: center; margin-bottom: 30px; margin-top: 40px;">
         <a href="https://professionalskiddar.pages.dev/" style="color: var(--accent-blue); text-decoration: none; font-weight: bold;">← Back to Main Portfolio</a>
     </div>
@@ -192,6 +219,5 @@ Return</code></pre>
         <p>VolumeTweak is independent open-source software. Star the project on <a href="https://github.com/professionalskiddar/VolumeTweak">GitHub</a>.</p>
     </footer>
 </div>
-
 </body>
 </html>
