@@ -231,7 +231,6 @@
             <p class="tagline">Lightweight Windows audio automation engine. Standardize physical keyboard volume wheel rotations to strictly scale in precise 1% increments.</p>
             
             <div class="btn-container">
-                <!-- CHANGED TO FUNCTION CALL -->
                 <button onclick="handleDownload()" class="btn">🚀 Download (.EXE)</button>
                 
                 <div class="github-btn-group">
@@ -293,7 +292,15 @@ Return</code></pre>
 
     <script>
         function handleDownload() {
-            window.open('https://github.com/professionalskiddar/VolumeTweak/releases/download/Download/VolumeTweak64.exe', '_blank'); 
+            const downloadUrl = 'https://github.com/professionalskiddar/VolumeTweak/releases/download/Download/VolumeTweak64.exe';
+            
+            const link = document.createElement('a');
+            link.href = downloadUrl;
+            link.setAttribute('download', '');
+            document.body.appendChild(link);
+            link.click();
+            document.body.removeChild(link);
+
             document.getElementById('support-modal').style.display = 'flex';
         }
         function closeModal() {
